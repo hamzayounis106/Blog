@@ -7,7 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://gupshup-server-3065f391ce53.herokuapp.com/",
+        target: "https://blog-api-three-psi.vercel.app",
+        // target: "https://gupshup-server-3065f391ce53.herokuapp.com/",
         // target: "http://localhost:3000",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),

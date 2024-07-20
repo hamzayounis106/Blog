@@ -20,7 +20,7 @@ app.use(cors());
 app.use(
   cors({
     origin: [
-      "https://gupshup-client-one.vercel.app/",
+      "https://gupshup-client-one.vercel.app/", "https://blog-client-bice.vercel.app/",
       "http://localhost:5173",
     ],
   })
