@@ -3,6 +3,7 @@ import Register from "./Pages/Register";
 import Profile from "./Pages/Profile";
 import "flowbite";
 import "flowbite/dist/flowbite.min.css";
+import axios from "axios";
 
 import Header from "./Components/Header";
 import Post from "./Pages/Post";
@@ -15,6 +16,17 @@ import CreatePost from "./Pages/CreatePost";
 import Footer from "./Components/Footer";
 import EditProfile from "./Pages/EditProfile";
 function App() {
+  // Assuming you have a function to get the token from cookies
+function getAuthToken() {
+  const cookies = document.cookie.split('; ');
+  const authTokenCookie = cookies.find(row => row.startsWith('auth_token='));
+  return authTokenCookie ? decodeURIComponent(authTokenCookie.split('=')[1]) : null;
+}
+
+const authToken = getAuthToken();
+if (authToken) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+}
   const location = useLocation();
   // const showHeader = location.pathname !== "/profile";
 
