@@ -10,7 +10,7 @@ function MyPosts() {
 
   useEffect(() => {
     const checkAllowed = async () => {
-      const response = await axios.get("https://blog-api-three-psi.vercel.app/user/checkAuth");
+      const response = await axios.get("https://blog-api-three-psi.vercel.app/user/checkAuth",{ withCredentials: true });
       if (response.status === 200) {
         setAllowed(true);
         getmyposts();
@@ -20,7 +20,7 @@ function MyPosts() {
   }, []);
 
   const getmyposts = async () => {
-    const response = await axios.get("https://blog-api-three-psi.vercel.app/post/myposts");
+    const response = await axios.get("https://blog-api-three-psi.vercel.app/post/myposts",{ withCredentials: true });
     if (response.status === 200) {
       if (response.data.length === 0) {
         setmyposts(null);

@@ -8,7 +8,7 @@ function SavedPosts() {
   const [allowed, setAllowed] = useState(false);
   useEffect(() => {
     const checkAllowed = async () => {
-      const response = await axios.get("https://blog-api-three-psi.vercel.app/user/checkAuth");
+      const response = await axios.get("https://blog-api-three-psi.vercel.app/user/checkAuth",{ withCredentials: true });
       if (response.status === 200) {
         setAllowed(true);
         getSavedPosts();
@@ -17,7 +17,7 @@ function SavedPosts() {
     checkAllowed();
   }, []);
   const getSavedPosts = async () => {
-    const response = await axios.get("https://blog-api-three-psi.vercel.app/post/savedPosts");
+    const response = await axios.get("https://blog-api-three-psi.vercel.app/post/savedPosts",{ withCredentials: true });
     if (response.status === 200) {
       if (response.data.length === 0) {
         setSavedPosts(null);

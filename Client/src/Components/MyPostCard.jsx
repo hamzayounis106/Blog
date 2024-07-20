@@ -19,7 +19,7 @@ function MyPostCard(props) {
     try {
       const res = await axios.post("https://blog-api-three-psi.vercel.app/post/deletePost", {
         postId: props.id,
-      });
+      },{ withCredentials: true });
 
       if (res.status === 200) {
         setShowPopUp("removed");

@@ -30,7 +30,7 @@ function PostCard(props) {
       try {
         const res = await axios.post("https://blog-api-three-psi.vercel.app/user/addSavePost", {
           postId: props.id,
-        });
+        },{ withCredentials: true });
         console.log("Done", showPopUp);
         console.log(res);
         if (res.status === 200) {

@@ -16,7 +16,7 @@ function Sidebar() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("https://blog-api-three-psi.vercel.app/user/CheckAuth");
+        const res = await axios.get("https://blog-api-three-psi.vercel.app/user/CheckAuth", { withCredentials: true });
         setIsLoggedIn(res.status === 200 || res.status === 201);
       } catch (error) {
         console.error("Authentication check failed:", error);
@@ -26,7 +26,7 @@ function Sidebar() {
   }, []);
 
   const handleLogOut = async () => {
-    await axios.get("https://blog-api-three-psi.vercel.app/auth/logout");
+    await axios.get("https://blog-api-three-psi.vercel.app/auth/logout", { withCredentials: true });
     window.location.href = "/login";
   };
 

@@ -10,7 +10,7 @@ function CreatePost() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get("https://blog-api-three-psi.vercel.app/user/CheckAuth");
+        const response = await axios.get("https://blog-api-three-psi.vercel.app/user/CheckAuth",{ withCredentials: true });
         if (response.status === 201 || response.status === 200) {
           setAllowed(true);
         }
