@@ -10,6 +10,7 @@ export const verifyToken = (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, secretKey);
+    console.log(decoded)
     req.user = decoded;
     // res.send(decoded.email);
     // console.log(decoded);
