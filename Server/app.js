@@ -24,7 +24,7 @@ app.use(
       "https://blog-client-bice.vercel.app",
       "http://localhost:5173",
     ],
-    credentials: true, // if you are using cookies
+    credentials: true, 
   })
 );
 
