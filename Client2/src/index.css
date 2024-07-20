@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Make scrollbar modern */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #dcdcdd;
+    border-radius: 10px;
+    /* border: 2px solid #131D32; */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #e2e8f0;
+  }
+  
+  ::-webkit-scrollbar-track {
+    /* background-color: #131D32; */
+    border-radius: 10px;
+  }
+
+
+.ql-toolbar {
+  border-radius: 12px;
+  padding: 20px !important;
+  width: 100%;
+  background-color: #131D32;
+}
+
+.ql-toolbar .ql-stroke {
+    fill: none !important;
+    stroke: #dcdcdd !important;
+}
+
+.ql-toolbar .ql-fill {
+    fill: #dcdcdd !important;
+    stroke: none !important;
+}
+
+.ql-toolbar .ql-picker {
+    color: #dcdcdd !important;
+}
+.ql-container {
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  border: 1px solid #e2e8f0 !important;
+  font-size: 1rem;
+}
+.ql-picker-item{
+    color: #1a1a1a !important;
+    padding: 4px 10px  !important;
+    margin: 4px 0;
+    border-radius: 4px;
+    
+}
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+    border-color: #ffffff00 !important;
+}
+.ql-picker-item.ql-selected{
+    color: #1a1a1a !important;
+    background-color: #e2e8f0 !important;
+}
+.ql-snow.ql-toolbar .ql-picker-label.ql-active{
+    color: #ffffff !important;
+    font-weight: 600;
+}
+.ql-active .ql-stroke{
+    stroke: #ffffff !important;
+    font-weight: 600;
+}
+.ql-picker-item:hover{
+    color: #1a1a1a !important;
+    background-color: #e2e8f0 !important;
+}
+.quill {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 1rem;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  --d:22px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  color: #25b09b;
+  box-shadow: 
+    calc(1*var(--d))      calc(0*var(--d))     0 0,
+    calc(0.707*var(--d))  calc(0.707*var(--d)) 0 1px,
+    calc(0*var(--d))      calc(1*var(--d))     0 2px,
+    calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 3px,
+    calc(-1*var(--d))     calc(0*var(--d))     0 4px,
+    calc(-0.707*var(--d)) calc(-0.707*var(--d))0 5px,
+    calc(0*var(--d))      calc(-1*var(--d))    0 6px;
+  animation: l27 1s infinite steps(8);
+}
+@keyframes l27 {
+  100% {transform: rotate(1turn)}
+}
