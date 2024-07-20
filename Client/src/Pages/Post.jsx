@@ -11,7 +11,7 @@ function DetailedPost() {
     const fetchPostData = async () => {
       if (!postId) return;
       try {
-        const response = await axios.get(`/api/post/getPost/${postId}`);
+        const response = await axios.get(`https://blog-api-three-psi.vercel.app/post/getPost/${postId}`);
         if (response.status === 200) {
           setPostData(response.data);
           setIsValid(true);

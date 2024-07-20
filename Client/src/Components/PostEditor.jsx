@@ -33,7 +33,7 @@ const PostEditor = () => {
     formData.append("excrept", excrept);
     formData.append("file", file);
     try {
-      const response = await axios.post("/api/post/savePost", formData, {
+      const response = await axios.post("https://blog-api-three-psi.vercel.app/post/savePost", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

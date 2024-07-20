@@ -17,7 +17,7 @@ function MyPostCard(props) {
   const handleDelete = async () => {
     setShowPopUp(null);
     try {
-      const res = await axios.post("/api/post/deletePost", {
+      const res = await axios.post("https://blog-api-three-psi.vercel.app/post/deletePost", {
         postId: props.id,
       });
 

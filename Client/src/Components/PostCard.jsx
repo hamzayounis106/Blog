@@ -28,7 +28,7 @@ function PostCard(props) {
     setShowPopUp(null);
     if (allowed) {
       try {
-        const res = await axios.post("/api/user/addSavePost", {
+        const res = await axios.post("https://blog-api-three-psi.vercel.app/user/addSavePost", {
           postId: props.id,
         });
         console.log("Done", showPopUp);

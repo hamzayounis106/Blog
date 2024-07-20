@@ -12,7 +12,7 @@ function Profile() {
   const [totalPosts, setTotalPosts] = useState(0);
   useEffect(() => {
     const getStats = async () => {
-      const res = await axios.get("/api/user/stats");
+      const res = await axios.get("https://blog-api-three-psi.vercel.app/user/stats");
       setLastDate(res.data.lastDate);
       setTotalPosts(res.data.totalPosts);
       console.log(res.data);
@@ -21,7 +21,7 @@ function Profile() {
   }, []);
   useEffect(() => {
     axios
-      .get("/api/user/profile")
+      .get("https://blog-api-three-psi.vercel.app/user/profile")
       .then((res) => {
         if (res.status === 200) {
           setProfileData(res.data);

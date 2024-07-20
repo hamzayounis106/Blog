@@ -15,7 +15,7 @@ function Register() {
   useEffect(() => {
     const CheckingAuth = async () => {
       try {
-        await axios.get("/api/user/CheckAuth").then((res) => {
+        await axios.get("https://blog-api-three-psi.vercel.app/user/CheckAuth").then((res) => {
           console.log(res);
           if (res.status === 201 || res.status === 200) {
             console.log("User is authenticated");
@@ -47,7 +47,7 @@ function Register() {
     const data = { name, email, password, Gender };
     try {
       console.log(name, email, password);
-      await axios.post("/api/auth/register", data).then((res) => {
+      await axios.post("https://blog-api-three-psi.vercel.app/auth/register", data).then((res) => {
         console.log(res);
         if (res.data === 11000) {
           setPopup("red");

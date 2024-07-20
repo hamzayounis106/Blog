@@ -19,7 +19,7 @@ function EditProfile() {
   };
   useEffect(() => {
     axios
-      .get("/api/user/profile")
+      .get("https://blog-api-three-psi.vercel.app/user/profile")
       .then((res) => {
         if (res.status === 200) {
           setProfileData(res.data);
@@ -33,7 +33,7 @@ function EditProfile() {
 useEffect(() => {
 }, [profileData]);
   const handleLogOut = async () => {
-    await axios.get("/api/auth/logout");
+    await axios.get("https://blog-api-three-psi.vercel.app/auth/logout");
     window.location.href = "/login";
   };
 
@@ -69,7 +69,7 @@ useEffect(() => {
 
     console.log(formData);
     try {
-      const response = await axios.post("/api/user/updateProfile", formData, {
+      const response = await axios.post("https://blog-api-three-psi.vercel.app/user/updateProfile", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -119,7 +119,7 @@ useEffect(() => {
       return;
     }
     try {
-      const res = await axios.post("/api/auth/updatePassword", {
+      const res = await axios.post("https://blog-api-three-psi.vercel.app/auth/updatePassword", {
         currentPassword,
         newPassword,
       });
