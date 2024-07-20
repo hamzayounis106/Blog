@@ -38,5 +38,5 @@ app.listen(port, () => {
 });
 
 app.get("/", (req, res) => {
-  res.send("You should not come here ");
+  res.send("You should not come here :)");
 });
