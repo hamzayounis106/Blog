@@ -20,11 +20,14 @@ app.use(cors());
 app.use(
   cors({
     origin: [
-      "https://gupshup-client-one.vercel.app/", "https://blog-client-bice.vercel.app",
+      "https://gupshup-client-one.vercel.app", 
+      "https://blog-client-bice.vercel.app",
       "http://localhost:5173",
     ],
+    credentials: true, // if you are using cookies
   })
 );
+
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/post", postRoutes);
