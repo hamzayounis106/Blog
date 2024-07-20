@@ -2,61 +2,62 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LeftBottomPopUp from "../Components/LeftBottomPopUp";
 import { Link } from "react-router-dom";
+
 function Login() {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [popup, setPopup] = useState(null);
   const [alert, setAlert] = useState(null);
   const [allowed, setAllowed] = useState(false);
+
   const closepopup = () => {
     setTimeout(() => {
       setPopup(null);
       setAlert(null);
     }, 2000);
   };
+
   useEffect(() => {
     const CheckingAuth = async () => {
       try {
-        await axios.get("https://blog-api-three-psi.vercel.app/user/CheckAuth",{ withCredentials: true }).then((res) => {
-          console.log(res);
-          if (res.status === 201 || res.status === 200) {
-            console.log("User is authenticated");
-            window.location.href = "/profile";
-            setAllowed(false);
-          } else {
-            setAllowed(true);
-          }
-        });
+        const res = await axios.get("https://blog-api-three-psi.vercel.app/user/CheckAuth", { withCredentials: true });
+        if (res.status === 201 || res.status === 200) {
+          console.log("User is authenticated");
+          window.location.href = "/profile";
+        } else {
+          setAllowed(true);
+        }
       } catch (error) {
         setAllowed(true);
-
         console.log(error);
       }
     };
     CheckingAuth();
   }, []);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const data = { email, password };
     try {
-      await axios.post("https://blog-api-three-psi.vercel.app/auth/login", data,{ withCredentials: true }).then((res) => {
-        console.log(res.data);
-        if ((res.status = 200)) {
-          window.location.href = "/profile";
-        }
-      });
-    } catch (error) {
-      if (error.response.status === 200) {
+      const res = await axios.post("https://blog-api-three-psi.vercel.app/auth/login", data, { withCredentials: true });
+      if (res.status === 200) {
         window.location.href = "/profile";
       }
-      if (error.response.status === 400) {
+    } catch (error) {
+      console.log(error);
+      if (error.response) {
+        if (error.response.status === 400) {
+          setPopup("red");
+          setAlert("Invalid Details");
+          closepopup();
+        } else if (error.response.status === 401 || error.response.status === 404) {
+          setPopup("red");
+          setAlert("Something went wrong");
+          closepopup();
+        }
+      } else {
         setPopup("red");
-        setAlert("Invalid Details");
-        closepopup();
-      }
-      if (error.response.status === 401 || error.response.status === 404) {
-        setPopup("red");
-        setAlert("Something went wrong");
+        setAlert("Network error");
         closepopup();
       }
     }
