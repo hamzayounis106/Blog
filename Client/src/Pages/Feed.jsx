@@ -8,7 +8,7 @@ function Feed() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get("/api/user/CheckAuth");
+        const response = await axios.get("https://blog-api-three-psi.vercel.app/user/CheckAuth");
         if (response.status === 201 || response.status === 200) {
           console.log(response.data);
           setAllowed(true);
@@ -22,7 +22,7 @@ function Feed() {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await axios.get("/api/post/getPosts");
+        const res = await axios.get("https://blog-api-three-psi.vercel.app/post/getPosts");
         console.log(res.data);
         setPosts(res.data);
       } catch (error) {
