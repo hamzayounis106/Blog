@@ -19,10 +19,11 @@ app.use(bodyParser.json({ limit: "500mb" }));
 
 app.use(
   cors({
-    origin: ["https://blog-client-bice.vercel.app", "http://localhost:5173/"],
+    origin: ["https://blog-client-bice.vercel.app", "http://localhost:5173"],
     credentials: true,
   })
 );
+
 
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);

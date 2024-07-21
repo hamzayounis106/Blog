@@ -28,7 +28,7 @@ router.post("/register", async (req, res) => {
       secure: true,
       sameSite: "None",
       path: "/",
-      domain: "https://blog-client-bice.vercel.app/",
+      domain: ".vercel.app",
     });
 
     res.status(201).send("User Registered successfully");
@@ -69,7 +69,7 @@ router.post("/login", async (req, res) => {
 router.get("/logout", (req, res) => {
   res.clearCookie("auth_token", {
     path: "/",
-    domain: "https://blog-client-bice.vercel.app/",
+    domain: ".vercel.app",
   });
   res.send("Logged out successfully");
 });
