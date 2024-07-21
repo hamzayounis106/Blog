@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LeftBottomPopUp from "../Components/LeftBottomPopUp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -9,7 +9,7 @@ function Login() {
   const [popup, setPopup] = useState(null);
   const [alert, setAlert] = useState(null);
   const [allowed, setAllowed] = useState(false);
-
+  const navigate = useNavigate();
   const closepopup = () => {
     setTimeout(() => {
       setPopup(null);
@@ -20,10 +20,14 @@ function Login() {
   useEffect(() => {
     const CheckingAuth = async () => {
       try {
-        const res = await axios.get("https://blog-api-three-psi.vercel.app/user/CheckAuth", { withCredentials: true });
+        const res = await axios.get(
+          "https://blog-api-three-psi.vercel.app/user/CheckAuth",
+          { withCredentials: true }
+        );
         if (res.status === 201 || res.status === 200) {
           console.log("User is authenticated");
-          window.location.href = "/profile";
+          // window.location.href = "/profile";
+          navigate("/profile");
         } else {
           setAllowed(true);
         }
@@ -39,7 +43,11 @@ function Login() {
     e.preventDefault();
     const data = { email, password };
     try {
-      const res = await axios.post("https://blog-api-three-psi.vercel.app/auth/login", data, { withCredentials: true });
+      const res = await axios.post(
+        "https://blog-api-three-psi.vercel.app/auth/login",
+        data,
+        { withCredentials: true }
+      );
       if (res.status === 200) {
         window.location.href = "/profile";
       }
@@ -50,7 +58,10 @@ function Login() {
           setPopup("red");
           setAlert("Invalid Details");
           closepopup();
-        } else if (error.response.status === 401 || error.response.status === 404) {
+        } else if (
+          error.response.status === 401 ||
+          error.response.status === 404
+        ) {
           setPopup("red");
           setAlert("Something went wrong");
           closepopup();
