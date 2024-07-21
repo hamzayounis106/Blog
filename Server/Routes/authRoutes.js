@@ -3,7 +3,7 @@ import User from "../Models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { verifyToken } from "../Middleware/authMiddleware.js";
-import env from 'dotenv';
+import env from "dotenv";
 env.config();
 
 const router = express.Router();
@@ -23,7 +23,14 @@ router.post("/register", async (req, res) => {
       gender: req.body.Gender,
     });
     const token = jwt.sign({ email: user.email, id: user._id }, secretKey);
-    res.cookie("auth_token", token, { httpOnly: false, secure: true, sameSite: 'None', path: '/' });
+    res.cookie("auth_token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      path: "/",
+      domain: "https://blog-client-bice.vercel.app/",
+    });
+
     res.status(201).send("User Registered successfully");
   } catch (error) {
     console.error(error);
@@ -45,7 +52,14 @@ router.post("/login", async (req, res) => {
       return res.status(400).send("Invalid Details");
     }
     const token = jwt.sign({ email: user.email, id: user._id }, secretKey);
-    res.cookie("auth_token", token, { httpOnly: false, secure: true, sameSite: 'None', path: '/' });
+    res.cookie("auth_token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      path: "/",
+      domain: "https://blog-client-bice.vercel.app/",
+    });
+
     res.status(200).send("User Logged in successfully");
   } catch (error) {
     console.error(error);
@@ -53,7 +67,10 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  res.clearCookie("auth_token");
+  res.clearCookie("auth_token", {
+    path: "/",
+    domain: "https://blog-client-bice.vercel.app/",
+  });
   res.send("Logged out successfully");
 });
 router.post("/updatePassword", verifyToken, async (req, res) => {
