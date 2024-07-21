@@ -23,7 +23,7 @@ router.post("/register", async (req, res) => {
       gender: req.body.Gender,
     });
     const token = jwt.sign({ email: user.email, id: user._id }, secretKey);
-    res.cookie("auth_token", token, { httpOnly: true, secure: true });
+    res.cookie("auth_token", token, { httpOnly: false, secure: true, sameSite: 'None', path: '/' });
     res.status(201).send("User Registered successfully");
   } catch (error) {
     console.error(error);
@@ -45,7 +45,7 @@ router.post("/login", async (req, res) => {
       return res.status(400).send("Invalid Details");
     }
     const token = jwt.sign({ email: user.email, id: user._id }, secretKey);
-    res.cookie("auth_token", token, { httpOnly: true, secure: true });
+    res.cookie("auth_token", token, { httpOnly: false, secure: true });
     res.status(200).send("User Logged in successfully");
   } catch (error) {
     console.error(error);
