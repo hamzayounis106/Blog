@@ -28,7 +28,7 @@ function Login() {
         if (res.status === 201 || res.status === 200) {
           console.log("User is authenticated");
           // window.location.href = "/profile";
-          navigate("/profile");
+          // navigate("/profile");
         } else {
           setAllowed(true);
         }
@@ -50,7 +50,7 @@ function Login() {
         { withCredentials: true }
       );
       if (res.status === 200) {
-        window.location.href = "/profile";
+        // window.location.href = "/profile";
       }
       console.log("Cookies in CheckAuth: ", document.cookie); 
     } catch (error) {
