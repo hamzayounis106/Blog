@@ -24,6 +24,7 @@ function Login() {
           "https://blog-api-three-psi.vercel.app/user/CheckAuth",
           { withCredentials: true }
         );
+        console.log("Cookies in CheckAuth: ", document.cookie);
         if (res.status === 201 || res.status === 200) {
           console.log("User is authenticated");
           // window.location.href = "/profile";
@@ -38,7 +39,7 @@ function Login() {
     };
     CheckingAuth();
   }, []);
-
+  console.log("Cookies in CheckAuth: ", document.cookie); 
   const handleLogin = async (e) => {
     e.preventDefault();
     const data = { email, password };
@@ -51,6 +52,7 @@ function Login() {
       if (res.status === 200) {
         window.location.href = "/profile";
       }
+      console.log("Cookies in CheckAuth: ", document.cookie); 
     } catch (error) {
       console.log(error);
       if (error.response) {

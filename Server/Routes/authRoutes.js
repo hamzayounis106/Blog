@@ -30,6 +30,7 @@ router.post("/register", async (req, res) => {
       path: "/",
       domain: ".vercel.app",
     });
+    console.log("Set-Cookie Header: ", res.get("Set-Cookie"));
 
     res.status(201).send("User Registered successfully");
   } catch (error) {
@@ -59,7 +60,7 @@ router.post("/login", async (req, res) => {
       path: "/",
       domain: "https://blog-client-bice.vercel.app/",
     });
-
+    console.log("Set-Cookie Header: ", res.get('Set-Cookie'));
     res.status(200).send("User Logged in successfully");
   } catch (error) {
     console.error(error);
