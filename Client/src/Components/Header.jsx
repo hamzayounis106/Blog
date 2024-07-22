@@ -26,14 +26,12 @@ function Sidebar() {
   }, []);
 
   const handleLogOut = async () => {
-  try {
-    await axios.post("https://blog-api-three-psi.vercel.app/auth/logout", { withCredentials: true });
-    // document.cookie = "auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; SameSite=None";
-      
-    // window.location.href = "/login";
-  } catch (error) {
-    console.error("Logout failed:", error);
-  }
+    try {
+      await axios.post("https://blog-api-three-psi.vercel.app/auth/logout", {}, { withCredentials: true });
+      // After logout, you might want to update the state or redirect the user
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   return (
