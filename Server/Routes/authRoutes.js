@@ -68,12 +68,13 @@ router.post("/logout", (req, res) => {
   // console.log(res.cookie.auth_token);
   try {
     
-    res.cookie("del_token", "asdasdasdsas", {
-      httpOnly: true,
-      secure: true, 
-      sameSite: "None", 
-      expires: new Date(0) 
-    });
+    // res.cookie("del_token", "asdasdasdsas", {
+    //   httpOnly: true,
+    //   secure: true, 
+    //   sameSite: "None", 
+    //   expires: new Date(0) 
+    // });
+    res.clearCookie("auth_token");  
   } catch (error) {
     console.error(error);
     console.log("Error in clearing cookie");
