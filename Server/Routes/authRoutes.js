@@ -55,9 +55,8 @@ router.post("/login", async (req, res) => {
       httpOnly: true,
       sameSite: "None",
       secure: true,
-      
     });
-    console.log("Set-Cookie Header: ", res.get('Set-Cookie'));
+    console.log("Set-Cookie Header: ", res.get("Set-Cookie"));
     res.status(200).send("User Logged in successfully");
   } catch (error) {
     console.error(error);
@@ -67,7 +66,9 @@ router.post("/login", async (req, res) => {
 router.get("/logout", (req, res) => {
   res.clearCookie("auth_token", {
     path: "/",
-    domain: ".vercel.app",
+    secure: true,
+    sameSite: "None",
+    httpOnly: true,
   });
   res.send("Logged out successfully");
 });
