@@ -65,6 +65,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/logout", (req, res) => {
   console.log(res.get("Set-Cookie"));
+  console.log(res.cookie);
   try {
     res.clearCookie("auth_token", {
       path: "/",
