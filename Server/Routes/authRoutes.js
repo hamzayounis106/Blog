@@ -25,7 +25,7 @@ router.post("/register", async (req, res) => {
     const token = jwt.sign({ email: user.email, id: user._id }, secretKey);
     res.cookie("auth_token", token, {
       httpOnly: true,
-    
+      sameSite: "None",
     });
     console.log("Set-Cookie Header: ", res.get("Set-Cookie"));
 
@@ -52,7 +52,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ email: user.email, id: user._id }, secretKey);
     res.cookie("auth_token", token, {
       httpOnly: true,
-
+      sameSite: "None",
     });
     console.log("Set-Cookie Header: ", res.get('Set-Cookie'));
     res.status(200).send("User Logged in successfully");
