@@ -26,6 +26,7 @@ router.post("/register", async (req, res) => {
     res.cookie("auth_token", token, {
       httpOnly: true,
       sameSite: "None",
+      secure: true,
     });
     console.log("Set-Cookie Header: ", res.get("Set-Cookie"));
 
@@ -53,6 +54,8 @@ router.post("/login", async (req, res) => {
     res.cookie("auth_token", token, {
       httpOnly: true,
       sameSite: "None",
+      secure: true,
+      
     });
     console.log("Set-Cookie Header: ", res.get('Set-Cookie'));
     res.status(200).send("User Logged in successfully");
