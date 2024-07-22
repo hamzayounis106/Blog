@@ -26,8 +26,12 @@ function Sidebar() {
   }, []);
 
   const handleLogOut = async () => {
+  try {
     await axios.get("https://blog-api-three-psi.vercel.app/auth/logout", { withCredentials: true });
     window.location.href = "/login";
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
   };
 
   return (

@@ -64,12 +64,18 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  res.clearCookie("auth_token", {
-    path: "/",
-    secure: true,
-    sameSite: "None",
-    httpOnly: true,
-  });
+  console.log(res.get("Set-Cookie"));
+  try {
+    res.clearCookie("auth_token", {
+      path: "/",
+      secure: true,
+      sameSite: "None",
+      httpOnly: true,
+    });
+  } catch (error) {
+    console.error(error);
+    console.log("Error in clearing cookie");
+  }
   res.send("Logged out successfully");
 });
 router.post("/updatePassword", verifyToken, async (req, res) => {
