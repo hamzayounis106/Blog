@@ -69,7 +69,13 @@ router.post("/logout", (req, res) => {
   try {
     
 
-    res.clearCookie("auth_token");  
+    res.clearCookie("auth_token",{
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+      sameSite: "None",
+      Expires: "Session", 
+    });  
   } catch (error) {
     console.error(error);
     console.log("Error in clearing cookie");
