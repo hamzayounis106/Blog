@@ -17,16 +17,16 @@ import Footer from "./Components/Footer";
 import EditProfile from "./Pages/EditProfile";
 function App() {
   // Assuming you have a function to get the token from cookies
-function getAuthToken() {
-  const cookies = document.cookie.split('; ');
-  const authTokenCookie = cookies.find(row => row.startsWith('auth_token='));
-  return authTokenCookie ? decodeURIComponent(authTokenCookie.split('=')[1]) : null;
-}
+// function getAuthToken() {
+//   const cookies = document.cookie.split('; ');
+//   const authTokenCookie = cookies.find(row => row.startsWith('auth_token='));
+//   return authTokenCookie ? decodeURIComponent(authTokenCookie.split('=')[1]) : null;
+// }
 
-const authToken = getAuthToken();
-if (authToken) {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
-}
+// const authToken = getAuthToken();
+// if (authToken) {
+//   axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+// }
   const location = useLocation();
   // const showHeader = location.pathname !== "/profile";
 

@@ -28,7 +28,7 @@ router.post("/register", async (req, res) => {
       secure: true,
       sameSite: "None",
       path: "/",
-      domain: ".vercel.app",
+      domain: 'blog-client-bice.vercel.app', 
     });
     console.log("Set-Cookie Header: ", res.get("Set-Cookie"));
 
@@ -58,7 +58,7 @@ router.post("/login", async (req, res) => {
       secure: true,
       sameSite: "None",
       path: "/",
-      domain: "https://blog-client-bice.vercel.app/",
+      domain: 'blog-client-bice.vercel.app', 
     });
     console.log("Set-Cookie Header: ", res.get('Set-Cookie'));
     res.status(200).send("User Logged in successfully");
