@@ -67,11 +67,11 @@ router.get("/logout", (req, res) => {
   console.log(req.cookies.auth_token);
   // console.log(res.cookie.auth_token);
   try {
-    res.clearCookie("auth_token", {
-      path: "/",
-      secure: true,
-      sameSite: "None",
+    res.cookie("auth_token", "", {
       httpOnly: true,
+      secure: true, 
+      sameSite: "None", 
+      expires: new Date(0) 
     });
   } catch (error) {
     console.error(error);
