@@ -19,7 +19,9 @@ function EditProfile() {
   };
   useEffect(() => {
     axios
-      .get("https://blog-api-three-psi.vercel.app/user/profile")
+      .get("https://blog-api-three-psi.vercel.app/user/profile", {
+        withCredentials: true,
+      })
       .then((res) => {
         if (res.status === 200) {
           setProfileData(res.data);
@@ -30,8 +32,7 @@ function EditProfile() {
         console.log(error);
       });
   }, []);
-useEffect(() => {
-}, [profileData]);
+  useEffect(() => {}, [profileData]);
   const handleLogOut = async () => {
     await axios.get("https://blog-api-three-psi.vercel.app/auth/logout");
     window.location.href = "/login";
@@ -69,12 +70,16 @@ useEffect(() => {
 
     console.log(formData);
     try {
-      const response = await axios.post("https://blog-api-three-psi.vercel.app/user/updateProfile", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        "https://blog-api-three-psi.vercel.app/user/updateProfile",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      );
       if (response.status === 200) {
         if (response.data.email !== profileData.email) {
           setPopup("green");
@@ -120,10 +125,14 @@ useEffect(() => {
       return;
     }
     try {
-      const res = await axios.post("https://blog-api-three-psi.vercel.app/auth/updatePassword", {
-        currentPassword,
-        newPassword,
-      },{ withCredentials: true });
+      const res = await axios.post(
+        "https://blog-api-three-psi.vercel.app/auth/updatePassword",
+        {
+          currentPassword,
+          newPassword,
+        },
+        { withCredentials: true }
+      );
       if (res.status === 200) {
         setPopup("green");
         setAlert("Password updated successfully");
