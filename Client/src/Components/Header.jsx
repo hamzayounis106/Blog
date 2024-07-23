@@ -28,7 +28,7 @@ function Sidebar() {
   const handleLogOut = async () => {
     try {
       await axios.post("https://blog-api-three-psi.vercel.app/auth/logout", {}, { withCredentials: true });
-      // After logout, you might want to update the state or redirect the user
+      window.location.reload();
     } catch (error) {
       console.error("Logout failed:", error);
     }

@@ -34,8 +34,16 @@ function EditProfile() {
   }, []);
   useEffect(() => {}, [profileData]);
   const handleLogOut = async () => {
-    await axios.get("https://blog-api-three-psi.vercel.app/auth/logout");
-    window.location.href = "/login";
+    try {
+      await axios.post(
+        "https://blog-api-three-psi.vercel.app/auth/logout",
+        {},
+        { withCredentials: true }
+      );
+      window.location.reload();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   const handleEditProfile = async (e) => {

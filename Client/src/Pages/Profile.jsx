@@ -10,18 +10,12 @@ function Profile() {
   const [profileData, setProfileData] = useState(null);
   const [lastDate, setLastDate] = useState("Never");
   const [totalPosts, setTotalPosts] = useState(0);
-  useEffect(() => {
-    const getStats = async () => {
-      const res = await axios.get("https://blog-api-three-psi.vercel.app/user/stats",{ withCredentials: true });
-      setLastDate(res.data.lastDate);
-      setTotalPosts(res.data.totalPosts);
-      console.log(res.data);
-    };
-    getStats();
-  }, []);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios
-      .get("https://blog-api-three-psi.vercel.app/user/profile",{ withCredentials: true })
+      .get("https://blog-api-three-psi.vercel.app/user/profile", {
+        withCredentials: true,
+      })
       .then((res) => {
         if (res.status === 200) {
           setProfileData(res.data);
@@ -32,10 +26,29 @@ function Profile() {
         console.log(error);
       });
   }, []);
-
+  const getStats = async () => {
+    if (profileData) {
+      const res = await axios.get(
+        "https://blog-api-three-psi.vercel.app/user/stats",
+        { withCredentials: true }
+      );
+      setLastDate(res.data.lastDate);
+      setTotalPosts(res.data.totalPosts);
+      console.log(res.data);
+    }
+  };
+  useEffect(() => {
+    getStats();
+    setLoading(false);
+  }, [profileData]);
   return (
     <>
-      {profileData ? (
+      {loading && !profileData && (
+        <div className="flex items-center justify-center h-40">
+          <p className="text-gray-700">Loading profile data...</p>
+        </div>
+      )}
+      {profileData && !loading ? (
         <div className="container flex flex-row items-stretch flex-grow w-full h-screen justify-stretch bg-gradient-to-r from-[#0f172a] to-[#1e304b]">
           <div className="flex flex-col items-center justify-between w-full p-6 bg-white">
             <div className="flex items-center justify-end w-full mb-6">
@@ -47,7 +60,7 @@ function Profile() {
                 <span className="ml-2"> New Post</span>
               </Link>
             </div>
-            {profileData ? (
+            {profileData && (
               <div className="flex flex-col items-center gap-6">
                 <div className="flex flex-col items-center">
                   {profileData.profilePicture ? (
@@ -87,10 +100,6 @@ function Profile() {
                       </div> */}
                   </div>
                 </div>
-              </div>
-            ) : (
-              <div className="flex items-center justify-center h-40">
-                <p className="text-gray-700">Loading profile data...</p>
               </div>
             )}
           </div>
