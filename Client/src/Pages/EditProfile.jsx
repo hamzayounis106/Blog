@@ -40,7 +40,7 @@ function EditProfile() {
         {},
         { withCredentials: true }
       );
-      window.location.reload();
+      window.location.href = "/";
     } catch (error) {
       console.error("Logout failed:", error);
     }
