@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import LeftBottomPopUp from "../Components/LeftBottomPopUp";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 function Register() {
+  const navigate = useNavigate();
   const [popup, setPopup] = useState(null);
   const [alert, setAlert] = useState(null);
   const [allowed, setAllowed] = useState(false);
@@ -15,16 +16,21 @@ function Register() {
   useEffect(() => {
     const CheckingAuth = async () => {
       try {
-        await axios.get("https://blog-api-three-psi.vercel.app/user/CheckAuth",{ withCredentials: true }).then((res) => {
-          console.log(res);
-          if (res.status === 201 || res.status === 200) {
-            console.log("User is authenticated");
-            window.location.href = "/profile";
-            setAllowed(false);
-          } else {
-            setAllowed(true);
-          }
-        });
+        await axios
+          .get("https://blog-api-three-psi.vercel.app/user/CheckAuth", {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res);
+            if (res.status === 201 || res.status === 200) {
+              console.log("User is authenticated");
+              window.location.href = "/profile";
+              navigate("/profile");
+              setAllowed(false);
+            } else {
+              setAllowed(true);
+            }
+          });
       } catch (error) {
         setAllowed(true);
 
@@ -47,20 +53,25 @@ function Register() {
     const data = { name, email, password, Gender };
     try {
       console.log(name, email, password);
-      await axios.post("https://blog-api-three-psi.vercel.app/auth/register", data,{ withCredentials: true }).then((res) => {
-        console.log(res);
-        if (res.data === 11000) {
-          setPopup("red");
-          setAlert("User already exists");
-          closepopup();
-          return;
-        }
-        if (res.data === undefined) {
-          setPopup("red");
-        closepopup();
-        setAlert("Something went wrong");
-        }
-      });
+      await axios
+        .post("https://blog-api-three-psi.vercel.app/auth/register", data, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data === 11000) {
+            setPopup("red");
+            setAlert("User already exists");
+            closepopup();
+            return;
+          }
+          if (res.data === undefined) {
+            setPopup("red");
+            closepopup();
+            setAlert("Something went wrong");
+          }
+          navigate("/profile");
+        });
     } catch (error) {
       if (error.response.status === 401) {
         setPopup("red");

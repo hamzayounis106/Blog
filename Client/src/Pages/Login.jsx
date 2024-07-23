@@ -28,7 +28,7 @@ function Login() {
         if (res.status === 201 || res.status === 200) {
           console.log("User is authenticated");
           // window.location.href = "/profile";
-          // navigate("/profile");
+          navigate("/profile");
         } else {
           setAllowed(true);
         }
