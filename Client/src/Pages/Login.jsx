@@ -50,9 +50,9 @@ function Login() {
         { withCredentials: true }
       );
       if (res.status === 200) {
-        // window.location.href = "/profile";
+        window.location.href = "/";
       }
-      console.log("Cookies in CheckAuth: ", document.cookie); 
+      // console.log("Cookies in CheckAuth: ", document.cookie); 
     } catch (error) {
       console.log(error);
       if (error.response) {

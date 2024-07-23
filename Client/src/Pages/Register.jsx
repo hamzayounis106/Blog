@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import LeftBottomPopUp from "../Components/LeftBottomPopUp";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function Register() {
   const navigate = useNavigate();
   const [popup, setPopup] = useState(null);
   const [alert, setAlert] = useState(null);
   const [allowed, setAllowed] = useState(false);
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [Gender, setGender] = useState(null);
   const closepopup = () => {
     setTimeout(() => {
       setPopup(null);
@@ -39,10 +43,6 @@ function Register() {
     };
     CheckingAuth();
   }, []);
-  const [name, setName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [Gender, setGender] = useState(null);
 
   const handleRegister = async (e) => {
     e.preventDefault();
