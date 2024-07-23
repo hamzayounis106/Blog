@@ -5,10 +5,14 @@ import PostCard from "../Components/PostCard";
 function Feed() {
   const [posts, setPosts] = useState([]);
   const [allowed, setAllowed] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get("https://blog-api-three-psi.vercel.app/user/CheckAuth", { withCredentials: true });
+        const response = await axios.get(
+          "https://blog-api-three-psi.vercel.app/user/CheckAuth",
+          { withCredentials: true }
+        );
         if (response.status === 201 || response.status === 200) {
           console.log(response.data);
           setAllowed(true);
@@ -22,7 +26,10 @@ function Feed() {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await axios.get("https://blog-api-three-psi.vercel.app/post/getPosts", { withCredentials: true });
+        const res = await axios.get(
+          "https://blog-api-three-psi.vercel.app/post/getPosts",
+          { withCredentials: true }
+        );
         console.log(res.data);
         setPosts(res.data);
       } catch (error) {
@@ -30,6 +37,7 @@ function Feed() {
       }
     };
     getPosts();
+    setLoading(false);
   }, []);
 
   return (
@@ -39,19 +47,25 @@ function Feed() {
           {/* Left sidebar content */}
         </div>
         <div className="w-full p-4 bg-gray-100 md:w-1/2 ">
-          {posts.map((post) => (
-            <PostCard
-              key={post._id}
-              id={post._id}
-              title={post.title}
-              author={post.userName}
-              content={post.content}
-              imageUrl={post.imageUrl}
-              userImage={post.userProfileImage}
-              permission={allowed}
-              saved={post.saved}
-            />
-          ))}
+          {loading ? (
+            <div>Loading.......</div>
+          ) : (
+            <div>
+              {posts.map((post) => (
+                <PostCard
+                  key={post._id}
+                  id={post._id}
+                  title={post.title}
+                  author={post.userName}
+                  content={post.content}
+                  imageUrl={post.imageUrl}
+                  userImage={post.userProfileImage}
+                  permission={allowed}
+                  saved={post.saved}
+                />
+              ))}
+            </div>
+          )}
         </div>
         <div className="w-1/4 bg-gray-100 md:block">
           {/* Right sidebar content */}
