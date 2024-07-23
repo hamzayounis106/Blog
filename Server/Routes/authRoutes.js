@@ -67,15 +67,13 @@ router.post("/logout", (req, res) => {
   console.log(req.cookies.auth_token);
   // console.log(res.cookie.auth_token);
   try {
-    
-
-    res.clearCookie("auth_token",{
+    res.clearCookie("auth_token", {
       httpOnly: true,
       sameSite: "None",
       secure: true,
       sameSite: "None",
-      Expires: "Session", 
-    });  
+      Expires: "Session",
+    });
   } catch (error) {
     console.error(error);
     console.log("Error in clearing cookie");
@@ -85,7 +83,7 @@ router.post("/logout", (req, res) => {
 router.post("/updatePassword", verifyToken, async (req, res) => {
   const { currentPassword, newPassword } = req.body;
   const email = req.user.email;
-
+  console.log(email);
   try {
     const user = await User.findOne({ email });
     console.log(user);
