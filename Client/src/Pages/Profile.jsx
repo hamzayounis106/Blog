@@ -43,18 +43,17 @@ function Profile() {
   }, [profileData]);
   return (
     <>
-      {loading && !profileData && (
+      {loading && !profileData ? (
         <div className="flex items-center justify-center h-40">
           <p className="text-gray-700">Loading profile data...</p>
         </div>
-      )}
-      {profileData && !loading ? (
+      ) : profileData && !loading ? (
         <div className="container flex flex-row items-stretch flex-grow w-full h-screen justify-stretch bg-gradient-to-r from-[#0f172a] to-[#1e304b]">
           <div className="flex flex-col items-center justify-between w-full p-6 bg-white">
             <div className="flex items-center justify-end w-full mb-6">
               <Link
                 to="/create-post"
-                className="flex items-center gap-2 px-4 py-2 text-white bg-[#293546] rounded-lg hover:bg-[#293546d3] "
+                className="flex items-center gap-2 px-4 py-2 text-white bg-[#293546] rounded-lg hover:bg-[#293546d3]"
               >
                 <FaPlus className="text-lg" />
                 <span className="ml-2"> New Post</span>
@@ -93,11 +92,6 @@ function Profile() {
                       <p className="font-medium ">Last Post Date</p>
                       <h3 className="text-xl font-semibold ">{lastDate}</h3>
                     </div>
-                    {/* <div className="flex justify-evenly flex-col items-center p-6 rounded-lg shadow-md bg-[#F8FAFC] text-zinc-900">
-                        <BiLike className="mb-2 text-4xl " />
-                        <p className="font-medium ">Total Clicks</p>
-                        <h3 className="text-xl font-semibold ">0</h3>
-                      </div> */}
                   </div>
                 </div>
               </div>
