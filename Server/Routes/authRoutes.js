@@ -85,26 +85,26 @@ router.post("/logout", (req, res) => {
 router.post("/updatePassword", verifyToken, async (req, res) => {
   const { currentPassword, newPassword } = req.body;
   const email = req.user.email;
-  let user = null;
+
   try {
-    user = await User.findOne({ email });
-  } catch (error) {
-    res.status(500).send("An error occurred");
-    return;
-  }
-  if (user) {
-    const valid = await bcrypt.compare(currentPassword, user.password);
-    if (valid) {
-      const newHashedPassword = await bcrypt.hash(newPassword, 10);
-      try {
-        await User.findOneAndUpdate({ email }, { password: newHashedPassword });
-        res.status(200).send("Password updated successfully");
-      } catch (error) {
-        res.status(400).send("An error occurred");
-      }
-    } else {
-      res.status(401).send("Invalid current Password");
+    const user = await User.findOne({ email });
+    console.log(user);
+    if (!user) {
+      return res.status(404).send("User not found");
     }
+
+    const valid = await bcrypt.compare(currentPassword, user.password);
+    if (!valid) {
+      return res.status(401).send("Invalid current password");
+    }
+
+    const newHashedPassword = await bcrypt.hash(newPassword, 10);
+    await User.findOneAndUpdate({ email }, { password: newHashedPassword });
+
+    res.status(200).send("Password updated successfully");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred");
   }
 });
 export default router;

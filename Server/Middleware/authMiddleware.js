@@ -5,7 +5,7 @@ env.config();
 const secretKey = process.env.SECRET_KEY;
 export const verifyToken = (req, res, next) => {
   const token = req.cookies.auth_token;
-  console.log("Token is: " + token);
+  // console.log("Token is: " + token);
   if (!token) {
     return res.status(401).send('Unauthorized');
   }
