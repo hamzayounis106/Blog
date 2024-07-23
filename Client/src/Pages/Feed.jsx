@@ -6,6 +6,7 @@ function Feed() {
   const [posts, setPosts] = useState([]);
   const [allowed, setAllowed] = useState(false);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -23,6 +24,7 @@ function Feed() {
     };
     checkAuth();
   }, []);
+
   useEffect(() => {
     const getPosts = async () => {
       try {
@@ -34,10 +36,11 @@ function Feed() {
         setPosts(res.data);
       } catch (error) {
         console.error("Failed to fetch posts:", error);
+      } finally {
+        setLoading(false); 
       }
     };
     getPosts();
-    setLoading(false);
   }, []);
 
   return (
@@ -48,7 +51,7 @@ function Feed() {
         </div>
         <div className="w-full p-4 bg-gray-100 md:w-1/2 ">
           {loading ? (
-            <div>Loading.......</div>
+            <div className="flex items-center justify-center h-full">Loading.......</div>
           ) : (
             <div>
               {posts.map((post) => (
