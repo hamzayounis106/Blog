@@ -68,7 +68,7 @@ function MyPosts() {
           </>
         ) : (
           <div className="flex flex-col items-center justify-center h-full">
-            <h1 className="text-2xl font-bold">Your Posts will appear here</h1>
+            <h1 className="text-2xl font-bold">Your Posts will appear here, to create a post, click  <Link to="/create-post">here</Link></h1>
           </div>
         )}
       </>
