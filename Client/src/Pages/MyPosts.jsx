@@ -37,7 +37,7 @@ function MyPosts() {
 
   return (
    <>
-   {this.state.loading  ? (
+   {!myposts ? (
     <p>Loading....</p>
    ):(
     <div className="flex flex-col bg-gray-50">
