@@ -3,7 +3,7 @@ import axios from "axios";
 import AccessDenied from "../Components/AccessDenied";
 import MyPostCard from "../Components/MyPostCard";
 import { useState, useEffect } from "react";
-
+import Link from "react-router-dom";
 function MyPosts() {
   const [myposts, setmyposts] = useState(null);
   const [allowed, setAllowed] = useState(false);
