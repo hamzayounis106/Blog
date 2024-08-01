@@ -57,10 +57,12 @@ function SavedPosts() {
       </div>
     );
   }
-  if (!loading && allowed && !savedPosts) {
-    <div className="flex flex-col items-center justify-center ">
-      <h1 className="text-3xl font-bold">Your saved will appear here</h1>
-    </div>;
+  if (!loading && !savedPosts) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <h1 className="text-3xl font-bold">Your saved will appear here</h1>
+      </div>
+    );
   }
   if (!allowed) {
     return <AccessDenied />;

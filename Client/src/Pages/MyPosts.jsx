@@ -89,7 +89,7 @@ function MyPosts() {
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col items-center justify-center h-full">
+                <div className="flex flex-col items-center justify-center w-full min-h-screen bg-white">
                   <h1 className="text-2xl font-bold">
                     Your Posts will appear here, to create a post, click
                     <Link to="/create-post">here</Link>
