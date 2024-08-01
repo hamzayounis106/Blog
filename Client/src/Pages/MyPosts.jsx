@@ -57,7 +57,7 @@ function MyPosts() {
       {Loading ? (
         <p>Loading....</p>
       ) : (
-        <div className="flex flex-col bg-gray-50">
+        <div className="flex flex-col h-screen bg-gray-50">
           {allowed ? (
             <>
               {myposts ? (
@@ -83,7 +83,7 @@ function MyPosts() {
               ) : (
                 <div className="flex flex-col items-center justify-center h-full">
                   <h1 className="text-2xl font-bold">
-                    Your Posts will appear here, to create a post, click{" "}
+                    Your Posts will appear here, to create a post, click
                     <Link to="/create-post">here</Link>
                   </h1>
                 </div>
