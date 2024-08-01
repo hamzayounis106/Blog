@@ -5,19 +5,26 @@ import SmallPostCard from "../Components/SmallPostCard";
 import { useState, useEffect } from "react";
 function SavedPosts() {
   const [savedPosts, setSavedPosts] = useState(null);
-  const [allowed, setAllowed] = useState(false);
+  const [allowed, setAllowed] = useState(false);  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const checkAllowed = async () => {
-      const response = await axios.get("https://blog-api-three-psi.vercel.app/user/checkAuth",{ withCredentials: true });
+      const response = await axios.get(
+        "https://blog-api-three-psi.vercel.app/user/checkAuth",
+        { withCredentials: true }
+      );
       if (response.status === 200) {
-        setAllowed(true);
         getSavedPosts();
+        setAllowed(true);
+        setLoading(false);
       }
     };
     checkAllowed();
   }, []);
   const getSavedPosts = async () => {
-    const response = await axios.get("https://blog-api-three-psi.vercel.app/post/savedPosts",{ withCredentials: true });
+    const response = await axios.get(
+      "https://blog-api-three-psi.vercel.app/post/savedPosts",
+      { withCredentials: true }
+    );
     if (response.status === 200) {
       if (response.data.length === 0) {
         setSavedPosts(null);
@@ -27,43 +34,50 @@ function SavedPosts() {
       console.log(response.data);
     }
   };
+  if(loading){
+    return <p>Loading....</p>
+  }
+  if(!allowed){
+    return <AccessDenied/>
+  }
   return (
-    <div className="w-full h-screen bg-gray-50">
-      {allowed ? (
-        <>
-          {savedPosts ? (
-            <>
-              {" "}
-              <div className="flex flex-col items-center justify-center w-full py-4">
-                <h1 className="text-2xl font-bold">Saved Posts</h1>
-                <div className="grid items-center grid-cols-3 gap-4 p-4">
-                  {savedPosts.map((post) => (
-                    <SmallPostCard
-                      key={post._id}
-                      id={post._id}
-                      title={post.title}
-                      picture={post.imageUrl}
-                      postedBy={post.userName}
-                      authorImage={post.userProfileImage}
-                      excerpt={post.excrept}
-                      saved={post.saved}
-                    />
-                  ))}
+    <>
+      
+      <div className="w-full h-screen bg-gray-50">
+        {allowed && (
+          <>
+            {savedPosts ? (
+              <>
+                {" "}
+                <div className="flex flex-col items-center justify-center w-full py-4">
+                  <h1 className="text-2xl font-bold">Saved Posts</h1>
+                  <div className="grid items-center grid-cols-3 gap-4 p-4">
+                    {savedPosts.map((post) => (
+                      <SmallPostCard
+                        key={post._id}
+                        id={post._id}
+                        title={post.title}
+                        picture={post.imageUrl}
+                        postedBy={post.userName}
+                        authorImage={post.userProfileImage}
+                        excerpt={post.excrept}
+                        saved={post.saved}
+                      />
+                    ))}
+                  </div>
                 </div>
+              </>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full">
+                <h1 className="text-3xl font-bold">
+                  Your saved will appear here
+                </h1>
               </div>
-            </>
-          ) : (
-            <div className="flex flex-col items-center justify-center h-full">
-              <h1 className="text-3xl font-bold">
-                Your saved will appear here
-              </h1>
-            </div>
-          )}
-        </>
-      ) : (
-        <AccessDenied />
-      )}
-    </div>
+            )}
+          </>
+        )}
+      </div>
+    </>
   );
 }
 
