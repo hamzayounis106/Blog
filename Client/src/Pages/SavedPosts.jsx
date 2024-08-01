@@ -8,6 +8,7 @@ function SavedPosts() {
   const [allowed, setAllowed] = useState(false);  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const checkAllowed = async () => {
+    try {
       const response = await axios.get(
         "https://blog-api-three-psi.vercel.app/user/checkAuth",
         { withCredentials: true }
@@ -15,8 +16,13 @@ function SavedPosts() {
       if (response.status === 200) {
         getSavedPosts();
         setAllowed(true);
-        setLoading(false);
+      
       }
+    } catch (error) {
+      console.error("Error checking auth:", error);
+    }finally{
+      setLoading(false);
+    }
     };
     checkAllowed();
   }, []);
