@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import AccessDenied from "../Components/AccessDenied";
 function CreatePost() {
-  const [allowed, setAllowed] = useState(false);
+  const [allowed, setAllowed] = useState(true);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -12,20 +12,23 @@ function CreatePost() {
       try {
         const response = await axios.get("https://blog-api-three-psi.vercel.app/user/CheckAuth",{ withCredentials: true });
         if (response.status === 201 || response.status === 200) {
-          setAllowed(true);
         }
       } catch (error) {
+        setAllowed(false);
         console.log(error);
       } finally {
+        
         setLoading(false);
       }
     };
     checkAuth();
   }, []);
-
+if(!allowed){
+  return <AccessDenied/>
+}
   return (
     <>
-      {allowed ? (
+      {allowed && (
         <div className="container p-4 pt-6 mx-auto md:p-6 lg:p-12">
           {loading ? (
             <div className="flex items-center justify-center w-full ">
@@ -48,9 +51,7 @@ function CreatePost() {
             </div>
           )}
         </div>
-      ) : (
-        <AccessDenied />
-      )}
+      ) }
     </>
   );
 }
