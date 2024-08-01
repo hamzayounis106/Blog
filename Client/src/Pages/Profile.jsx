@@ -11,6 +11,7 @@ function Profile() {
   const [lastDate, setLastDate] = useState("Never");
   const [totalPosts, setTotalPosts] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [deneied, setDenied] = useState(false);
   useEffect(() => {
     axios
       .get("https://blog-api-three-psi.vercel.app/user/profile", {
@@ -20,6 +21,8 @@ function Profile() {
         if (res.status === 200) {
           setProfileData(res.data);
           // setAllowed(true);
+        } else {
+          setDenied(true);
         }
       })
       .catch((error) => {
@@ -43,11 +46,14 @@ function Profile() {
   }, [profileData]);
   return (
     <>
+    
+      {loading === false && deneied === true && <AccessDenied />}
       {loading === true && profileData === null ? (
         <div className="flex items-center justify-center h-40">
           <p className="text-gray-700">Loading profile data...</p>
         </div>
       ) : (
+        !deneied &&
         profileData != null &&
         loading === false && (
           <div className="container flex flex-row items-stretch flex-grow w-full h-screen justify-stretch bg-gradient-to-r from-[#0f172a] to-[#1e304b]">
@@ -102,7 +108,6 @@ function Profile() {
           </div>
         )
       )}
-      {loading === false && profileData === null && <AccessDenied />}
     </>
   );
 }

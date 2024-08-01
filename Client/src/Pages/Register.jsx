@@ -29,7 +29,7 @@ function Register() {
             if (res.status === 201 || res.status === 200) {
               console.log("User is authenticated");
               window.location.href = "/profile";
-              navigate("/profile");
+   
               setAllowed(false);
             } else {
               setAllowed(true);
