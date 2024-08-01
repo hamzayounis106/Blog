@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa";
-import AccessDenied from "../Components/AccessDenied";
+import AccessDenied from "../Components/AccessDenied";import { Audio } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 
 import { BiStats, BiTimeFive, BiLike } from "react-icons/bi";
@@ -27,7 +27,12 @@ function Profile() {
       })
       .catch((error) => {
         console.log(error);
+      }).finally(()=>{
+     
+
+        setLoading(false);
       });
+    
   }, []);
   const getStats = async () => {
     if (profileData) {
@@ -41,19 +46,32 @@ function Profile() {
     }
   };
   useEffect(() => {
+   try {
     getStats();
-    setLoading(false);
+   } catch (error) {
+     console.log(error);
+    
+   }
   }, [profileData]);
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-white">
+     <Audio
+          height="80"
+          width="80"
+          radius="9"
+          color="gray"
+          ariaLabel="loading"
+          wrapperStyle
+          wrapperClass
+        />
+      </div>
+    );
+  }
   return (
     <>
-    
       {loading === false && deneied === true && <AccessDenied />}
-      {loading === true && profileData === null ? (
-        <div className="flex items-center justify-center h-40">
-          <p className="text-gray-700">Loading profile data...</p>
-        </div>
-      ) : (
-        !deneied &&
+      { !deneied &&
         profileData != null &&
         loading === false && (
           <div className="container flex flex-row items-stretch flex-grow w-full h-screen justify-stretch bg-gradient-to-r from-[#0f172a] to-[#1e304b]">
@@ -107,7 +125,7 @@ function Profile() {
             </div>
           </div>
         )
-      )}
+      }
     </>
   );
 }

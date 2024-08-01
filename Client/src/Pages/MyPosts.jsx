@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import axios from "axios";import { Audio } from "react-loader-spinner";
 import AccessDenied from "../Components/AccessDenied";
 import MyPostCard from "../Components/MyPostCard";
 import { useState, useEffect } from "react";
@@ -55,9 +55,17 @@ function MyPosts() {
   return (
     <>
       {Loading ? (
-        <p>Loading....</p>
+         <div className="flex items-center justify-center h-screen bg-white">  <Audio
+         height="80"
+         width="80"
+         radius="9"
+         color="gray"
+         ariaLabel="loading"
+         wrapperStyle
+         wrapperClass
+       /></div>
       ) : (
-        <div className="flex flex-col h-screen bg-gray-50">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
           {allowed ? (
             <>
               {myposts ? (

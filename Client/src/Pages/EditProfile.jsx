@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Button, TextInput, Label, FileInput } from "flowbite-react";
+import { Button, TextInput, Label, FileInput } from "flowbite-react";import { Audio } from "react-loader-spinner";
 import AccessDenied from "../Components/AccessDenied";
 import LeftBottomPopUp from "../Components/LeftBottomPopUp";
 function EditProfile() {
@@ -11,6 +11,7 @@ function EditProfile() {
   const [newProfilePicture, setNewProfilePicture] = useState(null);
   const [popup, setPopup] = useState(null);
   const [alert, setAlert] = useState(null);
+  const[loading,setLoading] = useState(true);
   const closepopup = () => {
     setTimeout(() => {
       setPopup(null);
@@ -30,9 +31,11 @@ function EditProfile() {
       })
       .catch((error) => {
         console.log(error);
-      });
+      }).finally(()=>{
+        setLoading(false);
+      } );
   }, []);
-  useEffect(() => {}, [profileData]);
+
   const handleLogOut = async () => {
     try {
       await axios.post(
@@ -155,108 +158,121 @@ function EditProfile() {
       // alert(error.response.data);
     }
   };
+  if(loading){
+   return <div className="flex items-center justify-center h-screen bg-white">  <Audio
+   height="80"
+   width="80"
+   radius="9"
+   color="gray"
+   ariaLabel="loading"
+   wrapperStyle
+   wrapperClass
+ /></div>
+  }
   return (
+  <>
+   {!loading && <>
     <div className="container p-4 pt-6 mx-auto md:p-6 lg:p-12">
-      {popup && (
-        <LeftBottomPopUp
-          text={alert}
-          state={popup}
-          onClose={() => setPopup(null)}
-        />
-      )}
+    {popup && (
+      <LeftBottomPopUp
+        text={alert}
+        state={popup}
+        onClose={() => setPopup(null)}
+      />
+    )}
 
-      {profileData && (
-        <div className="flex flex-wrap items-center -mx-4">
-          <div className="w-full p-4 xl:w-1/2">
-            <div className="p-4 bg-white rounded ">
-              <h2 className="mb-4 text-3xl font-semibold">Update Profile</h2>
-              <form onSubmit={handleEditProfile}>
-                <div className="flex flex-row flex-wrap items-center w-full mx-4 mb-4 justify-stretch">
-                  <div className="w-full p-4 xl:w-[30%] -ml-9">
-                    <img
-                      src={profileData.profilePicture}
-                      alt="Profile Picture"
-                      className="object-cover w-24 h-24 rounded-full"
-                    />
-                  </div>
-                  <div className="p-4 w-max ">
-                    <FileInput
-                      id="profilePicture"
-                      label="Update Profile Picture"
-                      onChange={(e) => {
-                        setNewProfilePicture(e.target.files[0]);
-                      }}
-                      className="w-full"
-                    />
-                  </div>
+    {profileData && (
+      <div className="flex flex-wrap items-center -mx-4">
+        <div className="w-full p-4 xl:w-1/2">
+          <div className="p-4 bg-white rounded ">
+            <h2 className="mb-4 text-3xl font-semibold">Update Profile</h2>
+            <form onSubmit={handleEditProfile}>
+              <div className="flex flex-row flex-wrap items-center w-full mx-4 mb-4 justify-stretch">
+                <div className="w-full p-4 xl:w-[30%] -ml-9">
+                  <img
+                    src={profileData.profilePicture}
+                    alt="Profile Picture"
+                    className="object-cover w-24 h-24 rounded-full"
+                  />
                 </div>
-                <div className="mb-4">
-                  <Label>Name</Label>
-                  <TextInput
-                    placeholder="Enter your name"
-                    id="name"
-                    value={updatedData.name}
+                <div className="p-4 w-max ">
+                  <FileInput
+                    id="profilePicture"
+                    label="Update Profile Picture"
                     onChange={(e) => {
-                      setUpdatedData({ ...updatedData, name: e.target.value });
+                      setNewProfilePicture(e.target.files[0]);
                     }}
                     className="w-full"
                   />
                 </div>
-                <div className="mb-4">
-                  <Label>Email</Label>
-                  <TextInput
-                    placeholder="Enter your email"
-                    id="email"
-                    value={updatedData.email}
-                    onChange={(e) => {
-                      setUpdatedData({ ...updatedData, email: e.target.value });
-                    }}
-                    className="w-full"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  className="mt-4 text-white transition-all duration-200 ease-in-out border-2 rounded-md disabled:cursor-not-allowed disabled:bg-white disabled:text-zinc-500 disabled:border-zinc-950 bg-[#131D32] hover:bg-zinc-800 w-fit"
-                >
-                  Save Changes
-                </Button>
-              </form>
-            </div>
-          </div>
-          <div className="w-full p-4 xl:w-1/2">
-            <div className="p-4 bg-white rounded ">
-              <h2 className="mb-10 text-3xl font-semibold ">Update Password</h2>
-              <form onSubmit={handlePasswordUpdate}>
-                <div className="mb-4">
-                  <Label>Current Password</Label>
-                  <TextInput
-                    placeholder="Enter your current password"
-                    id="password"
-                    onChange={(e) => setcurrentPassword(e.target.value)}
-                    className="w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <Label>New Password</Label>
-                  <TextInput
-                    placeholder="Enter your new password"
-                    id="password"
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    className="w-full"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  className="mt-4 text-white transition-all duration-200 ease-in-out border-2 rounded-md disabled:cursor-not-allowed disabled:bg-white disabled:text-zinc-500 disabled:border-zinc-950 bg-[#131D32] hover:bg-zinc-800 w-fit"
-                >
-                  Update Password
-                </Button>
-              </form>
-            </div>
+              </div>
+              <div className="mb-4">
+                <Label>Name</Label>
+                <TextInput
+                  placeholder="Enter your name"
+                  id="name"
+                  value={updatedData.name}
+                  onChange={(e) => {
+                    setUpdatedData({ ...updatedData, name: e.target.value });
+                  }}
+                  className="w-full"
+                />
+              </div>
+              <div className="mb-4">
+                <Label>Email</Label>
+                <TextInput
+                  placeholder="Enter your email"
+                  id="email"
+                  value={updatedData.email}
+                  onChange={(e) => {
+                    setUpdatedData({ ...updatedData, email: e.target.value });
+                  }}
+                  className="w-full"
+                />
+              </div>
+              <Button
+                type="submit"
+                className="mt-4 text-white transition-all duration-200 ease-in-out border-2 rounded-md disabled:cursor-not-allowed disabled:bg-white disabled:text-zinc-500 disabled:border-zinc-950 bg-[#131D32] hover:bg-zinc-800 w-fit"
+              >
+                Save Changes
+              </Button>
+            </form>
           </div>
         </div>
-      )}
-    </div>
+        <div className="w-full p-4 xl:w-1/2">
+          <div className="p-4 bg-white rounded ">
+            <h2 className="mb-10 text-3xl font-semibold ">Update Password</h2>
+            <form onSubmit={handlePasswordUpdate}>
+              <div className="mb-4">
+                <Label>Current Password</Label>
+                <TextInput
+                  placeholder="Enter your current password"
+                  id="password"
+                  onChange={(e) => setcurrentPassword(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+              <div className="mb-4">
+                <Label>New Password</Label>
+                <TextInput
+                  placeholder="Enter your new password"
+                  id="password"
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+              <Button
+                type="submit"
+                className="mt-4 text-white transition-all duration-200 ease-in-out border-2 rounded-md disabled:cursor-not-allowed disabled:bg-white disabled:text-zinc-500 disabled:border-zinc-950 bg-[#131D32] hover:bg-zinc-800 w-fit"
+              >
+                Update Password
+              </Button>
+            </form>
+          </div>
+        </div>
+      </div>
+    )}
+  </div></>}</>
   );
 }
 

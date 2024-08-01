@@ -2,7 +2,7 @@ import React from "react";
 import PostEditor from "../Components/PostEditor";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import AccessDenied from "../Components/AccessDenied";
+import AccessDenied from "../Components/AccessDenied";import { Audio } from "react-loader-spinner";
 function CreatePost() {
   const [allowed, setAllowed] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -31,9 +31,15 @@ if(!allowed){
       {allowed && (
         <div className="container p-4 pt-6 mx-auto md:p-6 lg:p-12">
           {loading ? (
-            <div className="flex items-center justify-center w-full ">
-              <p className="text-lg font-bold">Loading...</p>
-            </div>
+        <div className="flex items-center justify-center h-screen bg-white">  <Audio
+        height="80"
+        width="80"
+        radius="9"
+        color="gray"
+        ariaLabel="loading"
+        wrapperStyle
+        wrapperClass
+      /></div>
           ) : (
             <div className="flex items-center justify-center w-full my-5">
               {allowed ? (
