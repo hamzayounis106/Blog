@@ -9,8 +9,8 @@ import UpdateAdminProfile from "../Components/UpdateAdminProfile";
 function Admin(props) {
   const [checkAllowed, setCheckAllowed] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [posts, setPosts] = useState(null);
-  const [users, setUsers] = useState(null);
+  const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState([]);
   const [currentView, setCurrentView] = useState(props.view || "posts");
 
   useEffect(() => {
@@ -49,8 +49,12 @@ function Admin(props) {
         }
         console.log(res.data);
       };
-      getAllPosts();
-      getAllUsers();
+      if (currentView === "posts") {
+        getAllPosts();
+      }
+      if (currentView === "users") {
+        getAllUsers();
+      }
       setLoading(false);
     }
   }, [checkAllowed]);
@@ -102,7 +106,7 @@ function Admin(props) {
     <div className="flex min-h-screen">
       <Sidebar setCurrentView={setCurrentView} handleLogout={handleLogout} />
       <div className="flex-1 p-4">
-        {currentView === "posts" && posts && (
+        {currentView === "posts" && posts.length > 0 && (
           <div>
             <div className="flex flex-wrap items-center justify-center gap-4 p-4">
               {posts.map((post) => (
@@ -123,7 +127,7 @@ function Admin(props) {
           </div>
         )}
         {currentView === "editProfile" && <UpdateAdminProfile />}
-        {currentView === "users" && users && (
+        {currentView === "users" && users.length > 0 && (
           <div>
             <div className="flex flex-wrap items-stretch justify-center gap-4 p-4">
               <table className="min-w-full bg-white border border-gray-200 rounded-lg ">
@@ -134,7 +138,7 @@ function Admin(props) {
                     <th className="p-3 font-medium">Email</th>
                     <th className="p-3 font-medium">Last Post</th>
                     <th className="p-3 font-medium">Total Posts</th>
-                    <th className="p-3 font-medium">Remove  </th>
+                    <th className="p-3 font-medium">Remove </th>
                   </tr>
                 </thead>
 
