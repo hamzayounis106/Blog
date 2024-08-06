@@ -53,11 +53,11 @@ function Admin(props) {
         getAllPosts();
       }
       if (currentView === "users") {
-        getAllUsers();
       }
+      getAllUsers();
       setLoading(false);
     }
-  }, [checkAllowed]);
+  }, [checkAllowed,currentView]);
 
   const handlePostRemoval = (postId) => {
     setPosts(posts.filter((post) => post._id !== postId));
