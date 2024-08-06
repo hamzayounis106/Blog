@@ -16,9 +16,12 @@ function Admin(props) {
   useEffect(() => {
     const getAuthStatus = async () => {
       try {
-        const res = await axios.get("https://blog-api-three-psi.vercel.app/admin/checkAuthAdmin", {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          "https://blog-api-three-psi.vercel.app/admin/checkAuthAdmin",
+          {
+            withCredentials: true,
+          }
+        );
         if (res.status === 200) {
           setCheckAllowed(true);
         }
@@ -32,18 +35,24 @@ function Admin(props) {
   useEffect(() => {
     if (checkAllowed) {
       const getAllPosts = async () => {
-        const res = await axios.get("https://blog-api-three-psi.vercel.app/admin/allPostsA", {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          "https://blog-api-three-psi.vercel.app/admin/allPostsA",
+          {
+            withCredentials: true,
+          }
+        );
         if (res.status === 200) {
           setPosts(res.data);
         }
         console.log(res.data);
       };
       const getAllUsers = async () => {
-        const res = await axios.get("https://blog-api-three-psi.vercel.app/admin/allUsersA", {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          "https://blog-api-three-psi.vercel.app/admin/allUsersA",
+          {
+            withCredentials: true,
+          }
+        );
         if (res.status === 200) {
           setUsers(res.data);
         }
@@ -57,7 +66,7 @@ function Admin(props) {
       getAllUsers();
       setLoading(false);
     }
-  }, [checkAllowed,currentView]);
+  }, [checkAllowed, currentView]);
 
   const handlePostRemoval = (postId) => {
     setPosts(posts.filter((post) => post._id !== postId));
@@ -69,14 +78,21 @@ function Admin(props) {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post("https://blog-api-three-psi.vercel.app/admin/adminLogout", {
-        withCredentials: true,
-      });
+      // const res = await axios.post("https://blog-api-three-psi.vercel.app/admin/adminLogout", {
+
+      //   withCredentials: true,
+      // });
+      await axios.post(
+        "https://blog-api-three-psi.vercel.app/auth/admin/adminLogout",
+        {},
+        { withCredentials: true }
+      );
       console.log(res);
-      if (res.status === 200) {
-        setCheckAllowed(false);
-        window.location.reload();
-      }
+      setCheckAllowed(false);
+      window.location.reload();
+      // if (res.status === 200) {
+
+      // }
     } catch (error) {
       console.error("Failed to logout:", error);
     }

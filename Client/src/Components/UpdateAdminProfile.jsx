@@ -99,12 +99,13 @@ function UpdateAdminProfile() {
               className="block mb-2 text-sm font-medium text-gray-700"
               htmlFor="email"
             >
-              Email
+          New Email
             </label>
             <input
               id="email"
               type="email"
-              placeholder="Email"
+              placeholder="Email"  autocomplete="off"
+              
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -115,12 +116,12 @@ function UpdateAdminProfile() {
               className="block mb-2 text-sm font-medium text-gray-700"
               htmlFor="username"
             >
-              Username
+            New Username
             </label>
             <input
               id="username"
               type="text"
-              placeholder="Username"
+              placeholder="Username"  autocomplete="off"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -135,7 +136,7 @@ function UpdateAdminProfile() {
             </label>
             <input
               id="currentPassword"
-              type="password"
+              type="password"  autocomplete="off"
               placeholder="Current Password"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
@@ -147,12 +148,12 @@ function UpdateAdminProfile() {
               className="block mb-2 text-sm font-medium text-gray-700"
               htmlFor="password"
             >
-              Password
+              New Password
             </label>
             <input
               id="password"
               type="password"
-              placeholder="Password"
+              placeholder="Password"  autocomplete="off"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"

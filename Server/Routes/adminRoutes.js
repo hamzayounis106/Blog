@@ -37,12 +37,12 @@ router.post("/adminLogin", async (req, res) => {
       process.env.SECRET_KEY
     );
     console.log(token);
+
     res.cookie("admin_auth", token, {
       httpOnly: true,
       sameSite: "None",
       secure: true,
     });
-
     res.status(200).send({ username: admin.username, email: admin.email });
   } catch (error) {
     console.error("Login failed", error);
@@ -53,10 +53,13 @@ router.post("/adminLogin", async (req, res) => {
 router.post("/adminLogout", (req, res) => {
   console.log("Logging out: " + req.cookies.admin_auth);
   try {
+
     res.clearCookie("admin_auth", {
       httpOnly: true,
+      sameSite: "None",
       secure: true,
       sameSite: "None",
+      Expires: "Session",
     });
     res.sendStatus(200);
   } catch (error) {
