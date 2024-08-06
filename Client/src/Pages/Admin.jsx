@@ -16,7 +16,7 @@ function Admin(props) {
   useEffect(() => {
     const getAuthStatus = async () => {
       try {
-        const res = await axios.get("/api/admin/checkAuthAdmin", {
+        const res = await axios.get("https://blog-api-three-psi.vercel.app/admin/checkAuthAdmin", {
           withCredentials: true,
         });
         if (res.status === 200) {
@@ -32,7 +32,7 @@ function Admin(props) {
   useEffect(() => {
     if (checkAllowed) {
       const getAllPosts = async () => {
-        const res = await axios.get("/api/admin/allPostsA", {
+        const res = await axios.get("https://blog-api-three-psi.vercel.app/admin/allPostsA", {
           withCredentials: true,
         });
         if (res.status === 200) {
@@ -41,7 +41,7 @@ function Admin(props) {
         console.log(res.data);
       };
       const getAllUsers = async () => {
-        const res = await axios.get("/api/admin/allUsersA", {
+        const res = await axios.get("https://blog-api-three-psi.vercel.app/admin/allUsersA", {
           withCredentials: true,
         });
         if (res.status === 200) {
@@ -69,7 +69,7 @@ function Admin(props) {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post("/api/admin/adminLogout", {
+      const res = await axios.post("https://blog-api-three-psi.vercel.app/admin/adminLogout", {
         withCredentials: true,
       });
       console.log(res);

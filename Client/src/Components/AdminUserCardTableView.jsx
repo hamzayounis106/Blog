@@ -12,7 +12,7 @@ function AdminUserCard(props) {
     const getStats = async () => {
       try {
         const res = await axios.post(
-          "/api/admin/statOfUser",
+          "https://blog-api-three-psi.vercel.app/admin/statOfUser",
           { userID: props.userId },
           {
             withCredentials: true,
@@ -41,7 +41,7 @@ function AdminUserCard(props) {
     setShowPopUp(null);
     try {
       const res = await axios.post(
-        "/api/admin/deleteUserAdminC",
+        "https://blog-api-three-psi.vercel.app/admin/deleteUserAdminC",
         { userID: props.userId },
         { withCredentials: true }
       );

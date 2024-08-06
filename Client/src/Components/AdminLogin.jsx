@@ -10,7 +10,7 @@ function AdminLogin() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "/api/admin/adminLogin",
+        "https://blog-api-three-psi.vercel.app/admin/adminLogin",
         {
           username,
           password,

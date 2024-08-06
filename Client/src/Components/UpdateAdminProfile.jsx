@@ -54,7 +54,7 @@ function UpdateAdminProfile() {
     console.log(dataToSubmit);
     try {
       const response = await axios.post(
-        "/api/admin/adminUpdate",
+        "https://blog-api-three-psi.vercel.app/admin/adminUpdate",
         dataToSubmit,
         { withCredentials: true }
       );
@@ -62,7 +62,7 @@ function UpdateAdminProfile() {
       setMessageType("green");
       autoClosePopup();
       try {
- await axios.post("/api/admin/adminLogout", {
+ await axios.post("https://blog-api-three-psi.vercel.app/admin/adminLogout", {
           withCredentials: true,
         });
         setMessage("Logout successful");
