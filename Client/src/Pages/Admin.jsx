@@ -78,21 +78,15 @@ function Admin(props) {
 
   const handleLogout = async () => {
     try {
-      // const res = await axios.post("https://blog-api-three-psi.vercel.app/admin/adminLogout", {
-
-      //   withCredentials: true,
-      // });
-      await axios.post(
+      const res = await axios.post(
         "https://blog-api-three-psi.vercel.app/admin/adminLogout",
         {},
         { withCredentials: true }
       );
-      console.log(res);
-      setCheckAllowed(false);
-      window.location.reload();
-      // if (res.status === 200) {
-
-      // }
+      if (res.status === 200) {
+        setCheckAllowed(false);
+        window.location.reload();
+      }
     } catch (error) {
       console.error("Failed to logout:", error);
     }
