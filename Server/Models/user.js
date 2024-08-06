@@ -16,7 +16,7 @@ const Userscheeme = new mongoose.Schema({
   },
   profilePicture: {
     type: String,
-    default: "./user-6-line.svg",
+    default: "/user-6-line.svg",
   },
   gender: {
     type: String,

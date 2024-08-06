@@ -26,6 +26,7 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "https://blog-api-three-psi.vercel.app",
+        //  target: "http://localhost:3000",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

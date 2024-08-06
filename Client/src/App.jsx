@@ -5,6 +5,7 @@ import "flowbite";
 import "flowbite/dist/flowbite.min.css";
 import axios from "axios";
 
+import Admin from "./Pages/Admin";
 import Header from "./Components/Header";
 import Post from "./Pages/Post";
 import SavedPosts from "./Pages/SavedPosts";
@@ -17,23 +18,25 @@ import Footer from "./Components/Footer";
 import EditProfile from "./Pages/EditProfile";
 function App() {
   // Assuming you have a function to get the token from cookies
-// function getAuthToken() {
-//   const cookies = document.cookie.split('; ');
-//   const authTokenCookie = cookies.find(row => row.startsWith('auth_token='));
-//   return authTokenCookie ? decodeURIComponent(authTokenCookie.split('=')[1]) : null;
-// }
+  // function getAuthToken() {
+  //   const cookies = document.cookie.split('; ');
+  //   const authTokenCookie = cookies.find(row => row.startsWith('auth_token='));
+  //   return authTokenCookie ? decodeURIComponent(authTokenCookie.split('=')[1]) : null;
+  // }
 
-// const authToken = getAuthToken();
-// if (authToken) {
-//   axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
-// }
+  // const authToken = getAuthToken();
+  // if (authToken) {
+  //   axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+  // }
   const location = useLocation();
-  // const showHeader = location.pathname !== "/profile";
+  const showHeader = location.pathname.includes("admin") ? false : true;
+  const showFooter = location.pathname.includes("admin") ? false : true;
 
   return (
     <>
-      {/* {showHeader && <Header />} */}
-      <Header />
+      {showHeader && <Header />}
+   
+
       <Routes>
         <Route path="/" element={<Feed />} />
         <Route path="/saved-posts" element={<SavedPosts />} />
@@ -43,12 +46,15 @@ function App() {
         <Route path="/post/:id" element={<Post />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/about" element={<AboutUs />} />
-
+        <Route path="/admin" element={<Admin />}></Route>
         <Route path="/login" element={<Login />} />
         <Route path="/create-post" element={<CreatePost />} />
         <Route path="/feed" element={<Feed />} />
+        <Route path="/admin/posts" element={<Admin view="posts" />} />
+        <Route path="/admin/users" element={<Admin view="users" />} />
+        <Route path="/admin/editProfile" element={<Admin view="editProfile" />} />
       </Routes>
-      <Footer />
+      {showFooter && <Footer />}
     </>
   );
 }

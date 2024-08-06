@@ -7,6 +7,7 @@ import cloudinary from "cloudinary";
 import jwt from "jsonwebtoken";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import Post from "../Models/Post.js";
+import {adminVerifyToken} from "../Middleware/adminAuthMiddleware.js";
 import { verifyToken } from "../Middleware/authMiddleware.js";
 import User from "../Models/user.js";
 const router = express.Router();
@@ -152,6 +153,21 @@ router.get("/myposts", verifyToken, async (req, res) => {
   }
 });
 router.post("/deletePost", verifyToken, async (req, res) => {
+  const PostID = req.body.postId;
+  try {
+    const post = await Post.findById(PostID);
+    console.log(post);
+    if (post) {
+      await Post.findByIdAndDelete(PostID);
+      return res.status(200).send("Post Deleted Successfully");
+    }
+    return res.status(404).send("Post Not Found");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("An error occurred");
+  }
+});
+router.post("/deletePostAdminC", adminVerifyToken, async (req, res) => {
   const PostID = req.body.postId;
   try {
     const post = await Post.findById(PostID);
