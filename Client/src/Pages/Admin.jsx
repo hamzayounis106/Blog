@@ -83,7 +83,7 @@ function Admin(props) {
       //   withCredentials: true,
       // });
       await axios.post(
-        "https://blog-api-three-psi.vercel.app/auth/admin/adminLogout",
+        "https://blog-api-three-psi.vercel.app/admin/adminLogout",
         {},
         { withCredentials: true }
       );
