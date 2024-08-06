@@ -51,21 +51,16 @@ router.post("/adminLogin", async (req, res) => {
 });
 
 router.post("/adminLogout", (req, res) => {
-  console.log("Logging out" + req.cookies.admin_auth);
-  if (!req.cookies.admin_auth) {
-    res.status(401).send("Not Authorized");
-    return;
-  }
+  console.log("Logging out: " + req.cookies.admin_auth);
   try {
     res.clearCookie("admin_auth", {
       httpOnly: true,
-      sameSite: "None",
       secure: true,
       sameSite: "None",
-      Expires: "Session",
     });
     res.sendStatus(200);
   } catch (error) {
+    console.error("Error clearing cookie:", error);
     res.sendStatus(500);
   }
 });
